@@ -1,0 +1,2 @@
+bin #avoid local builds
+.project #avoid IDE settings
