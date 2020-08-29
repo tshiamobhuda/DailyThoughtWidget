@@ -1,23 +1,24 @@
 using Toybox.WatchUi;
 using Toybox.Communications;
+using Toybox.Graphics;
 
 class DailyThoughtView extends WatchUi.View {
+    var content;
+    //Find a way to set this in some .env file
     var url = "https://daily-thought-app.netlify.app/.netlify/functions/get-daily-thought";
 
     function initialize() {
         View.initialize();
     }
 
-    // Load your resources here
     function onLayout(dc) {
         setLayout(Rez.Layouts.MainLayout(dc));
     }
 
-    // Called when this View is brought to the foreground. Restore
-    // the state of this View and prepare it to be shown. This includes
-    // loading resources into memory.
     function onShow() {
         if (isCached) {
+            content = Application.Storage.getValue(key);
+
             return;
         }
 
@@ -31,19 +32,23 @@ class DailyThoughtView extends WatchUi.View {
         Communications.makeWebRequest(url, null, params, method(:onResponseCallback));
     }
 
-    // Update the view
     function onUpdate(dc) {
-        // Call the parent onUpdate function to redraw the layout
-        View.onUpdate(dc);
+        if (!isCached) {
+            return;
+        }
+
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.clear();
+
+        dc.drawText(
+            dc.getWidth() / 2,
+            dc.getHeight() / 2,
+            Graphics.FONT_SMALL,
+            content.get("chapter"),
+            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+        );
     }
 
-    // Called when this View is removed from the screen. Save the
-    // state of this View here. This includes freeing resources from
-    // memory.
-    function onHide() {
-    }
-
-    // onResponseCallback() will be fired once the makeWebRequest() returns
     function onResponseCallback(responseCode, data) {
         Application.Storage.clearValues();
 
