@@ -9,15 +9,10 @@ class DailyThoughtApp extends Application.AppBase {
         AppBase.initialize();
     }
 
-    // onStart() is called on application start up
     function onStart(state) {
         if (Application.Storage.getValue(key)) {
            isCached = true;
         }
-    }
-
-    // onStop() is called when your application is exiting
-    function onStop(state) {
     }
 
     // Return the initial view of your application here
