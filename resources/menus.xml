@@ -1,5 +1,0 @@
-<menu id="MainMenu" title="Menu">
-    <menu-item id="open_verse" label="Verse" />
-    <menu-item id="open_notes" label="Notes" />
-    <menu-item id="open_prayer" label="Prayer" />
-</menu>
