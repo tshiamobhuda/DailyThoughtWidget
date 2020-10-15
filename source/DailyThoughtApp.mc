@@ -3,6 +3,7 @@ using Toybox.Time;
 
 var isCached = false;
 var key = Time.today().value();
+var content;
 
 class DailyThoughtApp extends Application.AppBase {
     function initialize() {
@@ -17,6 +18,6 @@ class DailyThoughtApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-        return [ new DailyThoughtView() ];
+        return [ new DailyThoughtView(), new DailyThoughtDelegate() ];
     }
 }

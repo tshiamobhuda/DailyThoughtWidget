@@ -3,16 +3,13 @@ using Toybox.Communications;
 using Toybox.Graphics;
 
 class DailyThoughtView extends WatchUi.View {
-    var content;
     //Find a way to set this in some .env file
     var url = "https://daily-thought-app.netlify.app/.netlify/functions/get-daily-thought";
-
+    
+    var lol = 0;
+    
     function initialize() {
         View.initialize();
-    }
-
-    function onLayout(dc) {
-        setLayout(Rez.Layouts.MainLayout(dc));
     }
 
     function onShow() {
@@ -56,5 +53,27 @@ class DailyThoughtView extends WatchUi.View {
         isCached = true;
 
         WatchUi.popView(WatchUi.SLIDE_DOWN);
+    }
+}
+
+class DailyThoughtDelegate extends WatchUi.BehaviorDelegate {
+    function initialize() {
+        BehaviorDelegate.initialize();
+    }
+    
+    function onSelect() {
+        WatchUi.pushView(new Rez.Menus.MainMenu(), new MainMenuDelegate(), WatchUi.SLIDE_BLINK);
+        
+        return true;
+    }
+}
+
+class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
+    function initialize() {
+        Menu2InputDelegate.initialize();
+    }
+
+    function onMenuItem(item) {
+        System.print("Clicked");
     }
 }
