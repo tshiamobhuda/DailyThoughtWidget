@@ -59,7 +59,7 @@ class VerseView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
 
-        var myTextArea = new WatchUi.TextArea({
+        var txtTextArea = new WatchUi.TextArea({
             :text => text[screen],
             :color => Graphics.COLOR_WHITE,
             :font => Graphics.FONT_TINY,
@@ -70,6 +70,15 @@ class VerseView extends WatchUi.View {
             :justification => Graphics.TEXT_JUSTIFY_CENTER
         });
 
-        myTextArea.draw(dc);
+        var txtPageNumber = new WatchUi.Text({
+            :text => (screen + 1) + " of " + text.size(),
+            :font => Graphics.FONT_XTINY,
+            :locX => WatchUi.LAYOUT_HALIGN_CENTER,
+            :locY => dc.getHeight() - 40,
+            :justification => Graphics.TEXT_JUSTIFY_CENTER
+        });
+
+        txtTextArea.draw(dc);
+        txtPageNumber.draw(dc);
     }
 }
