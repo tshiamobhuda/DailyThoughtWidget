@@ -35,13 +35,15 @@ class DailyThoughtView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
 
-        dc.drawText(
-            dc.getWidth() / 2,
-            dc.getHeight() / 2,
-            Graphics.FONT_SMALL,
-            content.get("chapter"),
-            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-        );
+        var txtChapter = new WatchUi.Text({
+            :text => content.get("chapter"),
+            :font => Graphics.FONT_SMALL,
+            :locX => dc.getWidth() / 2,
+            :locY => dc.getHeight() / 2,
+            :justification => Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+        });
+
+        txtChapter.draw(dc);
     }
 
     function onResponseCallback(responseCode, data) {
