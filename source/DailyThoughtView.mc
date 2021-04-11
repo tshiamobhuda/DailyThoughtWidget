@@ -14,7 +14,7 @@ class DailyThoughtView extends WatchUi.View {
         if (isCached) {
             content = Application.Storage.getValue(key);
 
-            return;
+            return true;
         }
 
         var view = new WatchUi.ProgressBar("Loading", null);
@@ -25,11 +25,13 @@ class DailyThoughtView extends WatchUi.View {
         };
 
         Communications.makeWebRequest(url, null, options, method(:onResponseCallback));
+
+        return true;
     }
 
     function onUpdate(dc) {
-        if (!isCached) {
-            return;
+        if (isCached == false) {
+            return true;
         }
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
@@ -44,9 +46,18 @@ class DailyThoughtView extends WatchUi.View {
         });
 
         txtChapter.draw(dc);
+
+        return true;
     }
 
     function onResponseCallback(responseCode, data) {
+        if (Communications.BLE_CONNECTION_UNAVAILABLE == responseCode) {
+            WatchUi.popView(WatchUi.SLIDE_DOWN);
+            WatchUi.switchToView(new ErrorView(), new ErrorViewDelegate(), WatchUi.SLIDE_BLINK);
+
+            return;
+        }
+
         Application.Storage.clearValues();
 
         Application.Storage.setValue(key, data);
