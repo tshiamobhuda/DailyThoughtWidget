@@ -75,7 +75,8 @@ class VerseView extends WatchUi.View {
             :font => Graphics.FONT_XTINY,
             :locX => WatchUi.LAYOUT_HALIGN_CENTER,
             :locY => dc.getHeight() - 40,
-            :justification => Graphics.TEXT_JUSTIFY_CENTER
+            :justification => Graphics.TEXT_JUSTIFY_CENTER,
+            :color => Graphics.COLOR_LT_GRAY
         });
 
         txtTextArea.draw(dc);
